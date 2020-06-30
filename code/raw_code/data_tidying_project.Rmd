@@ -25,7 +25,7 @@ library(skimr)
 library(ggplot2)
 ```
 
-### Get Data
+#### Get Data
 
 [Data Set 1](https://data.world/retail/department-store-sales): Sales from the Retail Trade and Food Services Report from the US Census. This dataset only covers Department Stores, though the report covers a wide range of retail types. [1992-2016]
 
@@ -46,9 +46,9 @@ df2 <- read_excel(tf)
 colnames(df2) <- df2[1,]
 ```
 
-### Save Raw Data
+#### Save Raw Data
 
-```{r save-data, warning=FALSE} 
+```{r save-data, eval = FALSE, warning=FALSE} 
 ## use saveRDS() to save each object as a .rds file 
 
 saveRDS(object = df1, "data/raw_data/df_department.rds")
@@ -57,7 +57,7 @@ saveRDS(object = df2, "data/raw_data/df_retail.rds")
 
 ```
 
-### Wrangle Data
+#### Wrangle Data 1
 
 ```{r wrangle-df2, warning=FALSE} 
 ## an example working with df2
@@ -79,6 +79,7 @@ df_retail <- df2 %>%
   filter(business == "Retail sales, total "| business=="Department stores ")
 ```
 
+#### Wrangle Data 2
 ```{r wrangle-df1, warning=FALSE} 
 ## now, your turn!
 ## work with df1
@@ -105,16 +106,18 @@ df_department <- df1 %>%
   select("business", "year", "n")
 ```
 
+#### Merge data
 ```{r merge-data, warning=FALSE} 
 ## Now, combine the two data frames
-df_total <- left_join()
-
 
 df_total <- df_department %>%
   left_join(df_retail, by = c("business" = "business", "year" = "year", "n" = "n"))
 
 ```
 
+#### Plot results
+
+plot results from each data set and then combine
 ```{r plot, warning=FALSE, fig.width=10} 
 ## Plot Retail Sales data
 ggplot(df_retail, aes(x=year,y=n,colour=business)) +
